@@ -1,0 +1,74 @@
+<html>
+  <title>Perceptron</title>
+  <script>
+
+	var inputs = [[[0.1, 0.0], 0.1],
+			  [[0.1, 0.2], 0.3],
+			  [[0.3, 0.2], 0.5],
+			  [[0.4, 0.3], 0.7]];
+
+	var weights = [Math.random(),
+			       Math.random()];
+
+	var threshold = 0.5;
+	var learning_rate = 0.2;
+	var epochs = 0.0;
+
+	function choice(list) {
+    	return list[Math.floor(list.length * Math.random())];
+	}
+
+	function step(x){
+		//Let's just return the weight
+		return x;
+	}
+
+	function dot(x, w){
+		var z = new Array();
+		for(var q = 0; q < x.length; q++){
+			z.push(x[q] * w[q]);
+		}
+		return z.reduce(function(a, b) {
+  			   return a + b; 
+  			}, 0);
+	}
+
+	function multiply_all(x, w){
+		var z = new Array();
+		for(var q = 0; q < x.length; q++){
+			z.push(x[i] * w[i]);
+		}
+		return z;
+	}
+
+	function update_weights(i, error){
+		for(var q = 0; q < i.length; q++){
+			weights[q] += i[q] * error * learning_rate;
+		}
+	}
+	function train(){
+		var weights_h1 = document.getElementById("weights");
+		while(true){
+			var i = choice(inputs);
+			var expected = i[1];
+			i = i[0];
+			var delta_wji = dot(weights, i);
+			var error = expected - step(delta_wji);
+			update_weights(i, error);
+			weights_h1.innerHTML = "<p> Current Weights: " + weights.toString() + "</p>";
+			epochs += 1;
+			if(epochs % 300000 == 0){
+				for(var q = 0; q < inputs.length; q++){
+					alert(inputs[q][0].toString() + " -> " + step(dot(inputs[q][0], weights)).toFixed(1));
+					alert(weights);
+				}
+				break;
+			}
+		}
+	}
+	</script>
+	<body>
+	<h1 id="weights">Current Weights: []</h1>
+	<button type="button" onclick="train()">Train</button>
+	</body>
+</html>
